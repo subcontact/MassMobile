@@ -1,0 +1,182 @@
+<style>
+	body {background-color:#fff !important;
+	background-position:right 10px !important;}
+	.answer {
+		font-size: 30pt;
+		text-align: right;
+	}
+	.option {
+	}
+	.hidden_answer {
+		display: none;
+	}
+	.shown_answer {
+		display: inline;
+	}
+	.answerrow {
+		width: 100%;
+		opacity: 1;
+		color: black;
+	}
+	tr.answerrow.correct_answer {
+		background-color: green;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+       	-webkit-border-radius: 5px;
+	}
+	.q {
+		text-align: left;
+		padding: 2% 3%;
+		margin: 9%;
+		font-size: 50pt;
+		color: #000000;
+		background: rgba(255,255,255,0.8);
+		border-radius: 20px;
+		-moz-border-radius: 20px;
+       	-webkit-border-radius: 20px;
+	}
+
+	.question {
+	}
+
+	.letter {
+		padding-left:  2px;
+		padding-right: 2px;
+	}
+
+	.image_background {
+		position: absolute;
+		width: 100%;
+		height: 90%;
+		top: 0px;
+		left: 0px;
+		z-index: -1;
+	}
+
+</style>
+<img class="image_background"/>
+<div class="q">
+	<div style="margin-bottom: 1%;border-bottom: 2px solid #000"><span class=question>Question </span> <span id="q"></span></div>
+	<table padding="0" cellspacing="0" width="100%">
+		<tr class="answerrow">
+			<td width="900px"><span class="letter">A.</span> <span id="a1" class="option"></span> </td><td><span id="v1" class="answer hidden_answer"></span></td>
+		</tr>
+		<tr class="answerrow">
+			<td><span class="letter">B.</span> <span id="a2" class="option"></span> </td><td><span id="v2" class="answer hidden_answer"></span></td>
+		</tr>
+		<tr class="answerrow">
+			<td><span class="letter">C.</span> <span id="a3" class="option"></span></td><td><span id="v3" class="answer hidden_answer"></span></td>
+		</tr>
+		<tr class="answerrow">
+			<td><span class=letter>D.</span> <span id="a4" class="option"></span></td><td><span id="v4" class="answer hidden_answer"></span></td>
+		</tr>
+	</table>
+</div>
+<p class="votes" style="font-size: 50pt; font-style: san-serif; position:absolute; bottom:0; left: 0; margin:0px 10% 10px 5%;"/>
+<p style="font-size: 50pt; position:absolute; bottom:0; right: 0; margin:20px 5% 10px 4%;">quiz.azurewebsites.net</p>
+<script src="/games/quiz/quiz_playfield.js"></script>
+
+<script>
+	var q = -1;
+    var questions = [
+        {q: "How many years has TechEd been running?",
+            c: 1,
+            a: [10,20,25,30],
+        	i: "images/techedquiz/teched.jpg"},
+        {q: "This person's middle name?",
+            c: 2,
+            a: ["William", "Charles", "Henry", "Kermit"],
+        	i: "images/techedquiz/bill.jpg"},
+        {q: "The location of this Microsoft campus building",
+            c: 0,
+            a: ["Redmond", "Fargo", "North Pole", "Boston"],
+        	i: "http://upload.wikimedia.org/wikipedia/commons/3/38/Microsoft_campus%2C_ice_and_slush.jpg"}
+    ];
+
+
+	nextQuestion();
+
+	function nextQuestion() {
+		q++;
+		if (q < questions.length) {
+			hideVotes();
+			$(".answerrow").removeClass("correct_answer");
+			QuizPlayfield.clearVotes();
+
+			// set the image if it is specified
+			if (questions[q].i) {
+				$(".image_background").show();
+				$(".image_background").attr("src", questions[q].i);
+			} else {
+				$(".image_background").hide();
+			}
+
+            document.getElementById("q").innerHTML = (q+1) + ": " + questions[q].q;
+
+            //    $("#q").text((q+1) + ": " + questions[q].q);
+			$("#a1").text(questions[q].a[0]);
+			$("#a2").text(questions[q].a[1]);
+			$("#a3").text(questions[q].a[2]);
+			$("#a4").text(questions[q].a[3]);
+		} else {
+			q--; // go back to the last good question.
+		}
+	}
+
+	var votesVisible = false;
+
+	function showHideVotes() {
+		(votesVisible)? hideVotes() : showVotes();
+	}
+
+	function hideVotes() {
+		votesVisible = false;
+		$(".answer").removeClass("shown_answer").addClass("hidden_answer");
+	}
+
+	function showVotes() {
+		votesVisible = true;
+		$(".answer").removeClass("hidden_answer").addClass("shown_answer");	
+	}
+
+	function updateVotes() {
+		var answers = QuizPlayfield.calculateVotes();
+
+		// add up totals to get the percentage
+		var total = answers[0] + answers[1] + answers[2] + answers[3];
+
+		$("#v1").text(percent(answers[0], total) + "%");
+		$("#v2").text(percent(answers[1], total) + "%");
+		$("#v3").text(percent(answers[2], total) + "%");
+		$("#v4").text(percent(answers[3], total) + "%");
+
+		// Update the total number of votes for this question (always visible)
+		$(".votes").text("votes: " + total);
+	}
+
+	function percent(val, total) {
+		if (total == 0) { return 0; }
+		return Math.floor(val*100/total)
+	}
+
+	function showCorrectAnswer() {
+		$($("tr.answerrow")[questions[q].c]).addClass("correct_answer");
+
+		// Send the answer to all the handsets so they can show the result
+       	QuizPlayfield.sendToPlayers({game: "quiz", answer: questions[q].c});
+	}
+
+	var voteTimer;
+	function initPlayfield() {
+		QuizPlayfield.init();
+
+		// start a timer on the calculation of votes
+		voteTimer = setInterval(updateVotes, 2000);
+
+		return QuizPlayfield;
+	}
+
+	function shutdown() {
+		clearInterval(voteTimer);
+	}
+</script>

@@ -1,0 +1,113 @@
+<html>
+<head>
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<h1> Integration Tests </h1>
+<input type=button onclick="launchTests()" value="Run tests" /> 
+<div id="results">Test results</div>
+<script>
+	var tests = [
+		{name: "Create a player. Send data. No playfield. ", func: basicPlayer},
+		{name: "Create a playfield. Send some messages. No players. ", func: basicPlayfield},
+		{name: "Create a controller. Send some messages. No playfield or players. ", func: basicController},
+		{name: "Create a player and a playfield and send messages between them", func: playerAndPlayfield}
+	];
+	
+	function launchTests() {
+		document.getElementById("results").innerHTML = "Running...";
+		for (test in tests) {
+			test = tests[test];
+			document.getElementById("results").innerHTML += "<br/>" + test.name;
+			
+			test.func();
+		}
+	}
+	
+	function playerAndPlayfield() {
+		playfield = io.connect('/playfield');
+		playfield.on("namechange", function(name) {
+			assert("john", name);
+		});
+
+		player = io.connect('/players', {'force new connection': true});
+		player.emit("namechange", "roger");
+		
+		waitForAssert(1);
+		
+		player.disconnect();
+		// wait here for player disconnect;
+		playfield.disconnect();
+	}
+	
+	var asserted = 0;
+	// wait for assert to be called 'number' many times
+	function waitForAssert(number) { 
+		var then = new Date().getTime();
+		while (asserted < number) {
+			var now = new Date().getTime();
+			if (now-then > 5000) {
+				document.getElementById("results").innerHTML += "<span style='background-color: blue'> Message not received! </span>";
+				break;
+			}
+		}		
+	}
+	
+	function assert(expected, actual) {
+		asserted++;
+		if (expected == actual) {
+			document.getElementById("results").innerHTML += "<span style='background-color: green'>success</span>";
+		} else {
+			document.getElementById("results").innerHTML += "<span style='background-color: red'>" + actual + " (expecting '" + expected + "') </span>";
+		}
+	}
+	
+	function basicPlayer() {
+		// create a player. Send data. No playfield.
+		player = io.connect('/players', {'force new connection': true});
+		sendPlayerAllMessages(player);
+		player.disconnect(); 
+	}
+	
+	function basicPlayfield() {
+		// create a playfield, not players.
+		playfield = io.connect('/playfield');
+		sendPlayfieldAllMessages(playfield);
+		playfield.disconnect();
+	}
+
+	function basicController() {
+		// create a controller, nothing else
+		playfield = io.connect('/controller');
+		sendControllerAllMessages(playfield);
+		playfield.disconnect();
+	}
+		
+	// create a control panel, no players or playfield and run some commands.
+	// create one player, change the name, check the playfield gets it
+	// change the throttle
+	// 
+	
+	launchTests();
+
+	function sendPlayerAllMessages(player) {
+		player.emit("namechange", "Loren Carpenter " + Math.floor(Math.random()*9999));
+		player.emit("namechange", "Carpenter Loren" + Math.floor(Math.random()*9999));
+		player.emit("accel", "some numbers here! but what format?");
+	}
+	
+	function sendPlayfieldAllMessages(playfield) {
+		playfield.emit("admin", "no_updates");
+		playfield.emit("admin", "no_totals");
+		playfield.emit("admin", "yes_totals");
+		playfield.emit("admin", "yes_updates");
+	}
+	
+	function sendControllerAllMessages(controller) {
+		controller.emit("admin", "blah");
+		controller.emit("changeGame", "blahBlah");
+	}
+	
+	</script>
+</body>
+</html>

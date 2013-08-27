@@ -1,0 +1,73 @@
+<html>
+<head>
+	<title>Quiz Admin Page</title>
+	<script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript"  src="jquery.min.js"> </script>
+    <style>
+        input {
+            font-size: 30px;
+            height: 60px;
+            color: white;
+            background-color: darkgreen;
+            padding: 10px;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+        }
+
+        body {
+            background-color: forestgreen;
+        }
+    </style>
+</head>
+<body>
+	<h1>TechEd 2013 Quiz Control Panel</h1>
+	<div style="text-align: center">
+        <div>
+            <input type=button onclick="changeGame('intro')" value="Holding Page" />
+            <input type=button onclick="changeGame('quiz')" value="Quiz Page (and reset)" />
+        </div>
+        <hr/>
+        <div>
+            <input type=button onclick="ShowVotes();" value="Show Votes" />
+            <input type=button onclick="ShowCorrectAnswer();" value="Show Correct Answer" />
+            <input type=button onclick="NextQuestion();" value="Next Question" />
+        </div>
+    </div>
+    
+    <script>
+        var socket = io.connect('/control');
+        
+        // Tells the whole system to change the game to a different one. Effects the 
+        // playfield and the player
+        function changeGame(theGame) {
+            socket.emit("changeGame", theGame);
+        }
+        function  changePlayfieldSettings(settings){
+            socket.emit("admin", { control: "changeSettings",
+                scope : "playfield",
+                data: settings});
+        }
+
+        function  changePlayersSettings(settings){
+            socket.emit("admin", { control: "changeSettings",
+                scope : "players",
+                data: settings});
+        }
+
+        function ShowVotes() {
+            changePlayfieldSettings({game:'quiz',action:'showVotes'});
+        }
+
+        function ShowCorrectAnswer(){
+            changePlayfieldSettings({game:'quiz',action:'showCorrectAnswer'});
+        }
+
+        function NextQuestion(){
+            changePlayfieldSettings({game:'quiz',action:'nextQuestion'});
+            changePlayersSettings({game:'quiz',action:'nextQuestion'});
+        }
+    </script>
+   </body>
+</html>
+

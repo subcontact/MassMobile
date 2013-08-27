@@ -1,0 +1,178 @@
+
+<style type="text/css">
+    .slides {
+        text-align: left;
+        margin: 10px;
+        font-size: 20pt;
+        color: #ffffff;
+    }
+</style>
+
+<div id="dynamicContent" style="font-size: 20pt;color: #ffffff;" class="slides">The Mass Mobile Experiment</div>
+
+
+<div id="slidedeck" style="display: none">
+    <div id=intro>
+        <ul>
+            <li>Our story beings in May 2012, we dreamed a dream...</li>
+            <li>the dream was pong!</li>
+        </ul>
+    </div>
+
+    <div id=carpenter>
+        <ul>
+            <li>Loren C Caprenter born 1947</li>
+            <li>co-founder and chief scientist at Pixar</li>
+            <li>1980 showcased fractal landscape, later used in Star Trek II Wrath of Khan</li>
+            <li>1991 crowd swarm experiment</li>
+        </ul>
+    </div>
+        <div id=pong>
+            <ul>
+                <li>Pong was first released in 1972 by Atari</li>
+                <li>Pong was assigned to Allan Alcorn to develop as a training exercise!</li>
+            </ul>
+        </div>
+
+        <div id=footage>
+            <ul>
+                <li>Amatuer footage from Carpenter's experiment at SIGGRAPH in 1991</li>
+            </ul>
+        </div>
+
+
+        <div id=architecture>
+        <ul>
+            <li>clients send messages to server</li>
+            <li>server aggregates and totals</li>
+            <li>server then forwards to playfield</li>
+            <li>control panel orchestrates</li>
+            <li>lightweight generic server</li>
+        </ul>
+    </div>
+
+    <div id=games>
+        <ul>
+            <li>pong</li>
+            <li>tetris</li>
+            <li>tug of war</li>
+            <li>capture the flag</li>
+            <li>choose your own adventure</li>
+            <li>bounce ball around auditorium</li>
+            <li>memory game</li>
+            <li>real helicopter</li>
+        </ul>
+    </div>
+
+    <div id=worm>
+          <!-- political worm game ! -->
+        </div>
+    <div id=sick>
+        <ul>
+            <li>client timer controls send frequency to the server</li>
+            <li>server timer aggregates and sends to playfield </li>
+            <li>playfield timer - the game loop</li>
+        </ul>
+    </div>
+
+    <div id=client>
+        <ul>
+            <li>HTML5 & Javascript</li>
+            <li>Change game API to swap different games into a DIV</li>
+            <li>Each client establishes a websocket connection to the server</li>
+            <li>Accelerometer detection support with fall back for older browsers </li>
+        </ul>
+    </div>
+
+    <div id=playfield>
+        <ul>
+            <li>Game loop runs browser side</li>
+            <li>API's available to get players list, disconnect, new user, change game, etc.</li>
+        </ul>
+    </div>
+
+    <div id="server">
+        <ul>
+            <li>Approx 500 lines of JavaScript</li>
+            <li>Socket.io and Node.js does heavy lifting</li>
+            <li>Highly scalable</li>
+            <li>3 aggregation modes to choose from - all data, totals, unique values</li>
+        </ul>
+    </div>
+
+    <div id="node">
+        <li>This app is sweet spot for Node</li>
+        <li>Many users, low CPU, high IO</li>
+        <li>Two-way comms</li>
+        <li>Long running interactions</li>
+    </div>
+
+    <div id=loadtest>
+        <ul>
+            <li>tested on a single azure worker role</li>
+            <li>2000 concurrent websockets</li>
+            <li>8000+ messages per second processed!</li>
+        </ul>
+    </div>
+
+    <div id=ponggame>
+        <ul>
+            <!-- pong ! -->
+        </ul>
+    </div>
+
+    <div id=tools>
+        <ul>
+            <li>we used all open source tools</li>
+        </ul>
+    </div>
+
+    <div id=slide16>
+        <ul>
+            <!-- Q&A ! -->
+        </ul>
+    </div>
+
+    <div id=thanks>
+        <ul>
+            <li>Thanks!</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+
+	function initClient() {
+	    MMH.init(socket);
+	}
+
+	function stopClient() {
+		MMH.stopListeningForMovements();
+	}
+
+    function updateGameSettings(data) {
+        if (data.game != undefined && data.game == "presso") {
+
+      //    alert(JSON.stringify(data));
+      //      alert(JSON.stringify(data.message.clientSlide));
+            showSlide(data);
+        }
+    }
+
+    //swap out the contents of the divs..
+    function showSlide(data)
+    {
+        var content = document.getElementById(data.message.clientSlide);
+
+        if (content !=null)
+        {
+            document.getElementById("dynamicContent").innerHTML =content.innerHTML;
+        }
+        else
+        {
+            document.getElementById("dynamicContent").innerHTML ="";
+        }
+
+    }
+
+</script>

@@ -1,0 +1,151 @@
+<div  class="loadtestwelcome tron_white">PLEASE leave this page open !</div>
+<br/>
+<div id="loadTestStatus"  style="font-size: large;text-align: center;color:red;">Waiting for instructions...</div>
+<br/>
+<p class="tron_white">number of connections :
+<div id="loadTestConnections" class="tron_white">0</div>
+</p>
+<p class="tron_white">Number of Errors :
+<div id="loadtestErrors" class="tron_white">0</div>
+</p>
+<p class="tron_white">
+Number of messages sent to the Server : <div class="tron_white" id="loadtestCountSendMessages">0</div>
+</p>
+<p class="tron_white">
+Controller Messages :<div id="loadtestControllerMessages" class="tron_white"></div>
+</p>
+<script>
+    var SEND_FREQUENCY = 100;
+    var loadTestPlayers = [];
+    var loadTestHasBegun = false;
+    var timer = null;
+
+    var sendLoadDataTimer;
+    var sendMessageCount = 0;
+    var keepSendingData = true;
+
+    function initClient() {
+
+        // do nothing here really , just wait till the controller sends a message to start sending messages
+    }
+
+    function stopClient() {
+        clearInterval(sendLoadDataTimer);
+    }
+
+    //kick off the load test or change the existing test run
+    function changeLoadTestSettings(message) {
+
+        var rampUpCount = message.rampUpConnectionsBy;
+        var maxConnections = message.maxConnections;
+        var frequency = message.clientSendFrequency;
+
+        keepSendingData = message.sendData;
+
+    if (!keepSendingData)
+        {
+            outputMessage("[Controller says stop sending data!]");
+            clearInterval(sendLoadDataTimer);
+            document.getElementById("loadTestStatus").innerHTML = "Stopping transmission ....";
+            return;
+        }
+
+        //send frequency configurable from controller
+        SEND_FREQUENCY = frequency;
+
+        outputMessage("[Controller says ramp up by " + rampUpCount + " connections,maxConnections is " + maxConnections + " ]");
+
+        //if we haven't already reached the max user count ramp up by the rampUpCount
+         if (loadTestPlayers.length <= maxConnections)
+         {
+             addLoadTestUsers(rampUpCount);
+             document.getElementById("loadTestStatus").innerHTML = "Ramping Up....";
+         }
+
+        if (!loadTestHasBegun) {
+            document.getElementById("loadTestStatus").innerHTML = "Sending data....";
+
+            sendLoadTestData();
+            loadTestHasBegun = true;
+        }
+    }
+
+    ///ramp up more users
+    function addLoadTestUsers(count) {
+        for (i = 0; i < count; i++) {
+
+            try{
+                var player = {};
+                player.socket = io.connect('/players', {
+                    'force new connection': true
+                });
+                player.socket.emit("namechange", "Loren Carpenter " + Math.floor(Math.random() * 9999));
+                loadTestPlayers.push(player);
+            }
+            catch(err)
+            {
+                outputErrorMessage(err.message);
+            }
+
+        }
+        document.getElementById("loadTestConnections").innerHTML = loadTestPlayers.length;
+    }
+
+    // pumping out random accelerometer data to the server
+    function sendLoadTestData() {
+        for (p in loadTestPlayers) {
+            // move them both up and down
+            accel = {
+                tiltLR: Math.random() * 180 - 90,
+                tiltFB: Math.random() * 180 - 90,
+                dir: Math.random() * 180,
+                motionUD: Math.random() * 90,
+
+                playerLocation: "left"
+            }
+            try{
+                sendMessageCount++;
+                loadTestPlayers[p].socket.emit("accel", accel);
+            }
+            catch(err)
+            {
+                outputErrorMessage(err.message);
+            }
+        }
+
+        document.getElementById("loadtestCountSendMessages").innerHTML = sendMessageCount;
+
+        //remove each time in case the send frequency has changed
+        if (timer != undefined) {
+            clearTimeout(timer);
+        }
+
+        if (keepSendingData)
+        {
+        timer = setTimeout(sendLoadTestData, SEND_FREQUENCY);
+        }
+
+    }
+
+    function outputMessage(message) {
+        document.getElementById("loadtestControllerMessages").innerHTML = message
+    }
+
+    function outputErrorMessage(message) {
+        var content = document.getElementById("loadtestErrors").innerHTML;
+
+        content += "<br/>";
+        content += message;
+        document.getElementById("loadtestErrors").innerHTML = content;
+    }
+
+    //New config settings from controller...
+    function updateGameSettings(message) {
+        if (message.game != undefined && message.game == "loadTest") {
+            changeLoadTestSettings(message);
+        } else {
+            alert("Doh! I don't know how to process this message - " + JSON.stringify(message));
+        }
+    }
+
+</script>

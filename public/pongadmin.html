@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>Pong Admin Page</title>
+	<script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript"  src="jquery.min.js"> </script>
+	<script>
+		var socket = io.connect('/control');
+
+		
+		// Tells the whole system to change the game to a different one. Effects the 
+		// playfield and the player
+		function changeGame(theGame) {
+			socket.emit("changeGame", theGame);
+		}
+
+
+
+
+	</script>
+</head>
+<body bgcolor="#a9a9a9">
+	<h1>Pong Control Panel</h1>
+	<div>
+        <p>Clicking on the 'Pong' button restarts the game and refreshes everyone's handsets</p>
+        <br/>
+        <p>To make the ball go faster click on the browser where the pong playfield is runnning and click on the "." key</p>
+        <p>To make the ball go clower click on the browser where the pong playfield is runnning and click on the "," key</p>
+	<div>
+        <input type=button onclick="changeGame('intro')" value="Intro" />
+        <input type=button onclick="changeGame('pong')" value="Pong" />
+	</div>
+
+    <br/>
+
+    </div>
+   </body>
+</html>
+

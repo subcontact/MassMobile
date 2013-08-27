@@ -1,0 +1,44 @@
+<html>
+<head>
+	<script src="/socket.io/socket.io.js"></script>
+    <script>
+		var players = [];
+
+		function addPlayer() {
+        	var player = {};
+			player.socket = io.connect('/players', {'force new connection': true});
+			player.socket.emit("namechange", "Loren Carpenter " + Math.floor(Math.random()*9999));
+			players.push(player);
+
+			// show the number of players
+			document.getElementById("num").innerHTML = "# Players: " + players.length;
+		}
+
+		function emit() {
+			for (p in players) {
+				// move them both up and down
+				accel = {
+					tiltLR: Math.random()*180-90,
+					tiltFB: Math.random()*180-90,
+					dir: Math.random()*180,
+					motionUD: Math.random()*90
+				}
+				players[p].socket.emit("accel", accel);
+			}
+			setTimeout(emit, 200);
+		}
+
+		// kick it off
+		emit();
+
+	</script>
+</head>
+<body>
+<h1> Scalability test </h1>
+<input type=button onclick="addPlayer()" value="Add Player" /> <span id=num></span>
+<div id="dots">
+<div id="dots">
+rah rah
+</div>
+</body>
+</html>

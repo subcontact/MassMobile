@@ -1,0 +1,105 @@
+/*
+ * Share styles for MME. 
+ *
+ * If you have game specific styles they should go in the individual directories.
+ */
+
+/*The following is required to make a DIV fill screen in IE 9...*/  
+/*give the body height:100% so that its child    elements can have percentage heights*/
+
+Html, body {
+
+    Overflow:hidden;
+/*background:#35393a;     */
+background:#ffffff;
+
+}
+
+
+body{ height:100% }  /*this is what we want the div to look like*/
+
+div.fullscreen{    
+    display:block;    /*set the div in the top-left corner of the screen*/    
+	position:absolute;    
+	top:0;    
+	left:0;        
+	width:100%;    
+	height:100%;  
+   /* background-color: #000033;*/
+    text-align: center;
+}
+
+.main {
+    display:block;    /*set the div in the top-left corner of the screen*/    
+    position:absolute;    
+    top:0;    
+    left:0;        
+    width:100%;    
+    height:100%;  
+   /* background-color: darkblue ; */
+    text-align: center;
+}
+
+.welcome {
+    margin-top: 5%;
+    font-size: 40px;
+    font-weight: 200;
+    /*background-color: #000033;*/
+    text-align: center;
+}
+.welcome span {
+	font-size: 25px !important;
+}
+
+
+.loadtestwelcome {
+    margin-top: 10%;
+    font-size: 300%;
+    font-weight: 600;
+    background-color: #000033;
+    text-align: center;
+}
+
+.rounded-corners {
+     -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    border-radius: 20px;
+}
+
+
+.tron_black {
+    color: midnightblue;
+    font-size: 50pt;
+    text-shadow: 0 0 5px rgba(21, 171, 195, 0.7);
+    font-family: "Bitstream Vera Sans Mono", monospace;
+}
+.small_tron_black {
+    color: midnightblue;
+    font-size: 20pt;
+    text-shadow: 0 0 5px rgba(21, 171, 195, 0.7);
+    font-family: "Bitstream Vera Sans Mono", monospace;
+}
+
+.tron_white {
+   /* color: lightblue;
+    text-shadow: 0 0 20px rgba(100, 100, 200, 0.8);*/
+		color: #dddddd;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    font-family: "Bitstream Vera Sans Mono", monospace;
+}
+
+.bootcamp_title {
+    /* color: lightblue;
+     text-shadow: 0 0 20px rgba(100, 100, 200, 0.8);*/
+    color: #373942;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    font-family: "Bitstream Vera Sans Mono", monospace;
+}
+.logo {
+		display:block;
+		position:absolute;
+		bottom:0px;
+		margin:0 0 20px;
+		width:100%;		
+		}

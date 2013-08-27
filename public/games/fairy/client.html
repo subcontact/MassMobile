@@ -1,0 +1,33 @@
+        <div id="tilt" style="display: none">
+            <div style="background-color: gold; height: 100%; width: 100%;">BASIC TILT SCREEN. Used for a number of games. (should there be a ball
+                rolling around) or something else to indicate that we are interested in
+                your tilt. Maybe... sometimes mystery is better.
+            
+                <div id="mousecontroller" style="display:block"> <p>No accelerometer detected use the mouse instead. Click canvas to start
+                and stop. Move mouse to rotate arrow.
+					<canvas id="mousecanvas" width=200 height=200 style="display:block"></canvas>
+					<div id="arrowlog"></div>
+				</div>
+			</div>
+		</div>
+
+<script>
+
+            function movementCallback (accel) {
+                mouseArrow.updatePosition(accel.tiltLR, accel.tiltFB);
+                mouseArrow.drawArrow();
+            }
+
+			
+            function initClient() {
+                // start the acceleromters sending
+				MMH.init(socket);
+				//if (!MMH.clientHasAcceleromters()) {
+				//	initmousedetection();
+				//}
+				mouseArrow = new MouseArrow();
+				mouseArrow.init("mousecanvas");
+				MMH.listenForMovements(movementCallback);
+				
+            }
+</script>

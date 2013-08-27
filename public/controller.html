@@ -1,0 +1,122 @@
+<html>
+<head>
+	<title>Mass Mobile Hallucination</title>
+	<script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript"  src="jquery.min.js"> </script>
+	<script>
+		var socket = io.connect('/control');
+
+		// throttle the player updates !
+		function throttle() {
+			var frequency = document.getElementById('frequency').value;
+			var payload = {freq:frequency};
+            changePlayersSettings(payload);
+		}
+		
+		// Tells the whole system to change the game to a different one. Effects the 
+		// playfield and the player
+		function changeGame(theGame) {
+			socket.emit("changeGame", theGame);
+		}
+
+        //send a message to the pong playfield
+        function  changePongSettings(){
+            var settings = document.getElementById('pongSettings').value;
+            //need to encode the JSON
+            var data = eval('(' + settings + ')');
+            changePlayfieldSettings(data);
+        }
+
+        // broadcast a message to  all load test agents
+        function changeLoadTestSettings(){
+            var settings = document.getElementById('loadTestSettings').value;
+            //need to encode the JSON
+            var data = eval('(' + settings + ')');
+            changePlayersSettings(data);
+            changeServerSettings(data);
+        }
+
+        function  changeServerSettings(data){
+            socket.emit("admin", { control: "changeSettings",
+                scope : "server",
+                data: data});
+        }
+
+        function  changePlayersSettings(settings){
+            socket.emit("admin", { control: "changeSettings",
+                                    scope : "players",
+                                    data: settings});
+        }
+
+        function  changePlayfieldSettings(settings){
+            socket.emit("admin", { control: "changeSettings",
+                                    scope : "playfield",
+                                    data: settings});
+        }
+
+
+        function      ShowVotes(){
+           var settings = "{game:'quiz',action:'showVotes'}";
+            var data = eval('(' + settings + ')');
+            changePlayfieldSettings(data);
+        }
+
+
+        function      ShowCorrectAnswer(){
+            var settings = "{game:'quiz',action:'showCorrectAnswer'}";
+            var data = eval('(' + settings + ')');
+            changePlayfieldSettings(data);
+        }
+
+
+        function      NextQuestion(){
+            var settings = "{game:'quiz',action:'nextQuestion'}";
+            var data = eval('(' + settings + ')');
+            changePlayfieldSettings(data);
+
+            changePlayersSettings(data);
+        }
+
+
+	</script>
+</head>
+<body bgcolor="#ffccee">
+	<h1>Mass Mobile Controller</h1>
+	<div>
+	Message Sending Frequency<input type="text" id="frequency" value="40"/> 
+		<input type=button value ="Set Throttle" onclick="throttle()" /> 
+	</div>
+	<div>
+		Choose a game (e.g., main, next)
+        <input type=button onclick="changeGame('intro')" value="Intro Page" />
+        <input type=button onclick="changeGame('quiz')" value="Quiz!!!" />
+		<input type=button onclick="changeGame('worm')" value="Political Worm" />
+        <input type=button onclick="changeGame('pong')" value="Pong" />
+        <input type=button onclick="changeGame('loadtest')" value="Load Test To the Max" />
+        <input type=button onclick="changeGame('fairy')" value="Fairy Floters" />
+        <input type=button onclick="changeGame('presentation')" value="Presentation" />
+	</div>
+    <div style="background: #ff4500">
+        Send admin message to the QUIZ !
+        <input type=button onclick="ShowVotes();" value="Show Votes" />
+        <input type=button onclick="ShowCorrectAnswer();" value="Show Correct Answer" />
+        <input type=button onclick="NextQuestion();" value="Next Question" />
+    </div>
+    <br/>
+    <div style="background: #ffff00">
+    Send an admin message to the pong playfield!
+    This lets you configure some of the game settings on the fly!
+        <br/>
+    <textarea id = "pongSettings" rows="10" cols="30">{game:'pong',radius:20,dx:2,dy:5,paddleHeight:100,paddleWidth:25,gameLoopInterval:30,debugMode:true}</textarea>
+    <input type=button onclick="changePongSettings();" value="Send message to pong playfield" />
+    </div>
+    <div style="background: #deb887">
+        Send an admin message to the load test agents (i.e - players )!
+        This lets you start a load testing and ramp up the number of connections each player establishes to the server
+
+    <textarea id = "loadTestSettings" rows="10" cols="30">{game:'loadTest',rampUpConnectionsBy:1,maxConnections:5,clientSendFrequency:100,serverSendFrequency:100, sendData :true, DetailedLogging:false}</textarea>
+    <input type=button onclick="changeLoadTestSettings();" value="Send message to load agents and the server !!!" />
+    </div>
+</body>
+</html>
+

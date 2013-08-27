@@ -1,0 +1,172 @@
+<script src="/games/presentation/presentation_playfield.js"></script>
+<script>
+    // mandatory init function
+    function initPlayfield() {
+        PresentationPlayField.init();
+
+        return PresentationPlayField;
+    }
+</script>
+<div class="reveal">
+    <!-- Used to fade in a background when a specific slide state is reached
+    -->
+    <div class="state-background"></div>
+    <!-- Any section element inside of this container is displayed as
+    a slide -->
+    <div class="slides">
+        <section>
+            <h1>The Mass Mobile Experiment</h1>
+
+            <br/>
+            <span> Simon & Aidan </span>
+            <table style="text-align: left;margin: 10%">
+                <tr><td style="text-align: left;margin: 10%">@aidanjcasey</td></tr>
+                <tr><td style="text-align: left;margin: 10%">@simonraikallen</td></tr>
+            </table>
+
+
+        </section>
+        <section clientSlide="intro">
+            <h1>How it all began</h1>
+        </section>
+        <section clientSlide="carpenter">
+            <img width="701"  src="/games/presentation/images/carpenter.jpg" >
+        </section>
+
+        <section clientSlide="pong">
+            <img width="601"  src="/games/presentation/images/retro_pong.jpg" alt="Pong">
+        </section>
+
+        <section clientSlide="footage">
+            <h1>Carpenter's 1991 crowd swarm experiment</h1>
+        </section>
+
+        <section clientSlide="architecture">
+            <img width="1200" src="/games/presentation/images/conceptual.jpg">
+        </section>
+
+        <section clientSlide="games">
+            <h1>Game Ideas</h1>
+        </section>
+
+        <section clientSlide="worm">
+            <h1>The Worm</h1>
+            <h2>&nbsp;</h2>
+            <h2>atsa.cloudapp.net</h2>
+        </section>
+
+        <section clientSlide="sick">
+            <img width="900" src="/games/presentation/images/sickbag.jpg" >
+        </section>
+
+        <section clientSlide="client">
+            <img width="900" src="/games/presentation/images/client.jpg" >
+        </section>
+        <section clientSlide="playfield">
+            <img width="900" src="/games/presentation/images/playfield.jpg" >
+        </section>
+
+        <section clientSlide="server">
+            <img width="900"  src="/games/presentation/images/server.jpg" >
+        </section>
+
+        <section clientSlide="node">
+            <h1>Why Node?</h1>
+        </section>
+
+        <section clientSlide="loadtest">
+            <h1>Load Test</h1>
+            <center>
+            <table >
+                <tr align="middle">
+                    <td><img  width="800" src="/games/presentation/images/loadtest1.jpg"></td>
+                </tr><tr>
+                    <td><img  width="800" src="/games/presentation/images/loadtest2.jpg"></td>
+                </tr>
+            </table>
+</center>
+        </section>
+
+        <section clientSlide="ponggame">
+            <h1>Pong</h1>
+
+            <h2>&nbsp;</h2>
+            <h2>Try for a record?</h2>
+            
+        </section>
+
+        <section clientSlide="tools">
+            <h1>Tools</h1>
+            <table>
+                <tr>
+                    <td><img width="200" height="200" src="/games/presentation/images/agilebench.jpg"></td>
+                    <td><img width="200" height="200" src="/games/presentation/images/GitHub.jpg"></td>
+                    <td><img width="200" height="200" src="/games/presentation/images/HTML5.jpg"></td>
+                    <td><img width="200" height="200" src="/games/presentation/images/sublime.jpg"></td>
+                    <td><img width="200" height="200" src="/games/presentation/images/Nodejs.jpg"></td>
+                </tr>
+                <tr>
+                    <td><img width="200" height="200" src="/games/presentation/images/azure.jpg"></td>
+                    <td><img width="200" height="200" src="/games/presentation/images/jquery.jpg"></td>
+                    <td><img width="200" height="200" src="/games/presentation/images/socketio.jpg"></td>
+                    <td><img width="200" height="200" src="/games/presentation/images/reveal.jpg"></td>
+                    <td><img width="200" height="200" src="/games/presentation/images/flot.jpg"></td>
+                </tr>
+            </table>
+
+        </section>
+
+        <section>
+            <h1>Questions</h1>
+        </section>
+
+        <section clientSlide="thanks">
+            <h1>Thanks for listening!</h1>
+                  <br>
+
+            <span>github.com/MYOB-Technology/MassMobileHallucination.git</span>
+
+        </section>
+    </div>
+    <!-- The navigational controls UI -->
+    <aside class="controls"> <a class="left" href="#">&#x25C4;</a>
+        <a class="right" href="#">&#x25BA;</a>
+        <a class="up" href="#">&#x25B2;</a> <a class="down" href="#">&#x25BC;</a>
+    </aside>
+    <!-- Presentation progress bar -->
+    <div class="progress"><span></span>
+    </div>
+</div>
+<script src="/games/presentation/lib/js/head.min.js"></script>
+<!--<script src="js/reveal.min.js"></script>-->
+<script src="/games/presentation/js/reveal.js"></script>
+<script>
+
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+
+        theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default' // default/cube/page/concave/linear(2d)
+    });
+
+    // Hook up the slide changes to the playfield
+    Reveal.addEventListener('slidechanged', function (event) {
+        var nextindexh;
+        //var nextindexv;
+        nextindexh = event.indexh;
+        //  nextindexv = event.indexv + 1;
+
+        var data = {};
+        data.slideIndex= nextindexh;
+        data.clientSlide = "";
+
+        if ($("section:eq(" + nextindexh + ")").attr('clientSlide') !=null)
+        {
+            data.clientSlide= $("section:eq(" + nextindexh + ")").attr('clientSlide');
+        }
+        PresentationPlayField.changingToSlide(data);
+
+    });
+</script>

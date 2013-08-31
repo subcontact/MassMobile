@@ -4,42 +4,40 @@
  * If you have game specific styles they should go in the individual directories.
  */
 
-/*The following is required to make a DIV fill screen in IE 9...*/  
+/*The following is required to make a DIV fill screen in IE 9...*/
+
 /*give the body height:100% so that its child    elements can have percentage heights*/
-
-Html, body {
-
+ Html, body {
     Overflow:hidden;
-/*background:#35393a;     */
-background:#ffffff;
-
+    /*background:#35393a;     */
+    background:#ffffff;
 }
-
-
-body{ height:100% }  /*this is what we want the div to look like*/
-
-div.fullscreen{    
-    display:block;    /*set the div in the top-left corner of the screen*/    
-	position:absolute;    
-	top:0;    
-	left:0;        
-	width:100%;    
-	height:100%;  
-   /* background-color: #000033;*/
+body {
+    height:100%
+}
+/*this is what we want the div to look like*/
+ div.fullscreen {
+    display:block;
+    /*set the div in the top-left corner of the screen*/
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    /* background-color: #000033;*/
     text-align: center;
 }
-
 .main {
-    display:block;    /*set the div in the top-left corner of the screen*/    
-    position:absolute;    
-    top:0;    
-    left:0;        
-    width:100%;    
-    height:100%;  
-   /* background-color: darkblue ; */
+    display:block;
+    /*set the div in the top-left corner of the screen*/
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    /* background-color: darkblue ; */
     text-align: center;
 }
-
 .welcome {
     margin-top: 5%;
     font-size: 40px;
@@ -48,10 +46,8 @@ div.fullscreen{
     text-align: center;
 }
 .welcome span {
-	font-size: 25px !important;
+    font-size: 25px !important;
 }
-
-
 .loadtestwelcome {
     margin-top: 10%;
     font-size: 300%;
@@ -59,47 +55,210 @@ div.fullscreen{
     background-color: #000033;
     text-align: center;
 }
-
 .rounded-corners {
-     -moz-border-radius: 20px;
+    -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
     -khtml-border-radius: 20px;
     border-radius: 20px;
 }
-
-
 .tron_black {
     color: midnightblue;
     font-size: 50pt;
     text-shadow: 0 0 5px rgba(21, 171, 195, 0.7);
-    font-family: "Bitstream Vera Sans Mono", monospace;
+    font-family:"Bitstream Vera Sans Mono", monospace;
 }
 .small_tron_black {
     color: midnightblue;
     font-size: 20pt;
     text-shadow: 0 0 5px rgba(21, 171, 195, 0.7);
-    font-family: "Bitstream Vera Sans Mono", monospace;
+    font-family:"Bitstream Vera Sans Mono", monospace;
 }
-
 .tron_white {
-   /* color: lightblue;
+    /* color: lightblue;
     text-shadow: 0 0 20px rgba(100, 100, 200, 0.8);*/
-		color: #dddddd;
+    color: #dddddd;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-    font-family: "Bitstream Vera Sans Mono", monospace;
+    font-family:"Bitstream Vera Sans Mono", monospace;
 }
-
 .bootcamp_title {
     /* color: lightblue;
      text-shadow: 0 0 20px rgba(100, 100, 200, 0.8);*/
     color: #373942;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-    font-family: "Bitstream Vera Sans Mono", monospace;
+    font-family:"Bitstream Vera Sans Mono", monospace;
 }
 .logo {
-		display:block;
-		position:absolute;
-		bottom:0px;
-		margin:0 0 20px;
-		width:100%;		
-		}
+    display:block;
+    position:absolute;
+    bottom:0px;
+    margin:0 0 20px;
+    width:100%;
+}
+/* loading indicator */
+ #circular3dG {
+    position:relative;
+    width:256px;
+    height:256px;
+}
+.circular3dG {
+    position:absolute;
+    background-color:#2d2d42;
+    width:72px;
+    height:72px;
+    -moz-border-radius:76px;
+    -moz-animation-name:bounce_circular3dG;
+    -moz-animation-duration:1.2s;
+    -moz-animation-iteration-count:infinite;
+    -moz-animation-direction:linear;
+    -webkit-border-radius:76px;
+    -webkit-animation-name:bounce_circular3dG;
+    -webkit-animation-duration:1.2s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-direction:linear;
+    -ms-border-radius:76px;
+    -ms-animation-name:bounce_circular3dG;
+    -ms-animation-duration:1.2s;
+    -ms-animation-iteration-count:infinite;
+    -ms-animation-direction:linear;
+    -o-border-radius:76px;
+    -o-animation-name:bounce_circular3dG;
+    -o-animation-duration:1.2s;
+    -o-animation-iteration-count:infinite;
+    -o-animation-direction:linear;
+    border-radius:76px;
+    animation-name:bounce_circular3dG;
+    animation-duration:1.2s;
+    animation-iteration-count:infinite;
+    animation-direction:linear;
+}
+#circular3d_1G {
+    left:104px;
+    top:16px;
+    -moz-animation-delay:0.45s;
+    -webkit-animation-delay:0.45s;
+    -ms-animation-delay:0.45s;
+    -o-animation-delay:0.45s;
+    animation-delay:0.45s;
+}
+#circular3d_2G {
+    left:156px;
+    top:60px;
+    -moz-animation-delay:0.6s;
+    -webkit-animation-delay:0.6s;
+    -ms-animation-delay:0.6s;
+    -o-animation-delay:0.6s;
+    animation-delay:0.6s;
+}
+#circular3d_3G {
+    left:188px;
+    top:116px;
+    -moz-animation-delay:0.75s;
+    -webkit-animation-delay:0.75s;
+    -ms-animation-delay:0.75s;
+    -o-animation-delay:0.75s;
+    animation-delay:0.75s;
+}
+#circular3d_4G {
+    left:176px;
+    top:172px;
+    -moz-animation-delay:0.9s;
+    -webkit-animation-delay:0.9s;
+    -ms-animation-delay:0.9s;
+    -o-animation-delay:0.9s;
+    animation-delay:0.9s;
+}
+#circular3d_5G {
+    left:108px;
+    top:188px;
+    -moz-animation-delay:1.05s;
+    -webkit-animation-delay:1.05s;
+    -ms-animation-delay:1.05s;
+    -o-animation-delay:1.05s;
+    animation-delay:1.05s;
+}
+#circular3d_6G {
+    left:20px;
+    top:124px;
+    -moz-animation-delay:1.2s;
+    -webkit-animation-delay:1.2s;
+    -ms-animation-delay:1.2s;
+    -o-animation-delay:1.2s;
+    animation-delay:1.2s;
+}
+#circular3d_7G {
+    left:0px;
+    top:36px;
+    -moz-animation-delay:1.35s;
+    -webkit-animation-delay:1.35s;
+    -ms-animation-delay:1.35s;
+    -o-animation-delay:1.35s;
+    animation-delay:1.35s;
+}
+#circular3d_8G {
+    left:44px;
+    top:0px;
+    -moz-animation-delay:1.5s;
+    -webkit-animation-delay:1.5s;
+    -ms-animation-delay:1.5s;
+    -o-animation-delay:1.5s;
+    animation-delay:1.5s;
+}
+@-moz-keyframes bounce_circular3dG {
+    0% {
+        -moz-transform:scale(1)
+    }
+    100% {
+        -moz-transform:scale(.3)
+    }
+}
+@-webkit-keyframes bounce_circular3dG {
+    0% {
+        -webkit-transform:scale(1)
+    }
+    100% {
+        -webkit-transform:scale(.3)
+    }
+}
+@-ms-keyframes bounce_circular3dG {
+    0% {
+        -ms-transform:scale(1)
+    }
+    100% {
+        -ms-transform:scale(.3)
+    }
+}
+@-o-keyframes bounce_circular3dG {
+    0% {
+        -o-transform:scale(1)
+    }
+    100% {
+        -o-transform:scale(.3)
+    }
+}
+@keyframes bounce_circular3dG {
+    0% {
+        transform:scale(1)
+    }
+    100% {
+        transform:scale(.3)
+    }
+}
+#floater {
+    float:left;
+    height:50%;
+    margin-bottom:-120px;
+}
+#circular3dG {
+    clear:both;
+    height:240px;
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+.logo {
+    display:block;
+    position:absolute;
+    bottom:-19px;
+    margin:0 0 20px;
+    width:100%;
+}

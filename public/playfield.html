@@ -2,59 +2,11 @@
 <html>
     <head>
         <title>Playfield</title>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/lib/intro_playfield.js"></script>
-        <script src="/lib/fairy_playfield.js"></script>
-        <script src="/lib/loadtest_playfield.js"></script>
-        <link rel="stylesheet" href="../style.css" type="text/css" />
-        <script type="text/javascript"  src="jquery.min.js"> </script>
-        <script language="javascript" type="text/javascript" src="jquery.flot.js"></script>
-
-
-        <!-- the following are used by the reveal.js  (presentation slide show)-->
-        <!-- 
-        <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="/games/presentation/css/main.css">
-        <link rel="stylesheet" href="/games/presentation/css/theme/default.css" id="theme">
-        <link rel="stylesheet" href="/games/presentation/lib/css/zenburn.css">
-        -->
-        <style>
-            .logo {
-                display:block;
-                position:absolute;
-                bottom:-19px;
-                margin:0 0 20px;
-                width:100%;
-            }
-
-            body
-            {
-                /* 
-                background-image:url('Boot-Camp-Lock-up-D.png');
-                background-repeat:no-repeat;
-                background-attachment:fixed;
-                background-position:center;
-                 */
-            }
-
-        </style>
-
+        <link rel="stylesheet" href="style.css" type="text/css" />
     </head>
     
     <body>
         <div id="main" class="main">&nbsp;</div>
-
-        <div id="fairy" style="display: none">
-            <div style="background-color: grey">Messages per second:
-                <span id="stats"></span>
-                </br>Time to process a packet:
-                <span id="timer">f</span>
-            </div>
-            <canvas id="playfield" width="900" height="600" bgcolor="gold"></canvas>
-            <div style="width: 100%; background-color: pink">THE END</div>
-            <div id="log"></div>
-            <div id="log2"></div>
-        </div>
 
         <div id="intro" style="display: none">
             <div class="tron_black">TechEd 2013 Quiz</div>
@@ -63,33 +15,16 @@
             <div class="bootcamp_title" style="font-size: 30pt;margin: 10%">quiz.azurewebsites.net</div>
             <img style="position: absolute; left: 40%; bottom: 20%;" src="/images/MYOB_200.png" width="201"/>
         </div>
-
-        <div id="loadtest" style="display: none">
-            <div style="width: 100%; height: 100%; background-color:white;">
-                <p><input type=button onclick="currentGame.downloadChartData();" value="download all data" />
-                    <input type=button onclick="currentGame.toggleLogging();" value="log EVERY message" />
-                </p>
-                # aggregated accelerometer readings :<div id="loadTestOutput"></div><br/>
-                raw metrics<div id="loadTestMetricData"></div>
-                <p>
-                # active player socket connections<div id="loadTestNoOpenSockets"></div>
-                # dropped player socket connections<div id="loadTestDroppedConnections"></div>
-                </p>
-                <div id="chartRequestsPerSecond" style="width:1200px;height:300px;"></div>
-                <br/>
-                <div id="chartUserCount" style="width:1200px;height:300px;"></div>
-                <br/>
-                <div id="chartCPU" style="width:1000px;height:300px;"></div>
-            </div>
-        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/lib/intro_playfield.js"></script>
+        <script type="text/javascript"  src="jquery-2.0.3.min.js"> </script>
+        <script language="javascript" type="text/javascript" src="jquery.flot.js"></script>
         <script>
             var currentGame = null;
             var socket = io.connect("/playfield");
 
             var gameConfig = {}
             gameConfig.intro    = { section: "intro",   module: IntroPlayfield }; 
-            gameConfig.fairy    = { section: "fairy",   module: FairyPlayfield };
-            gameConfig.loadtest = { section: "loadtest",module: LoadTestPlayfield };
 
             // default starting game
             changeGame("intro");

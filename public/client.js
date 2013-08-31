@@ -1,13 +1,47 @@
-/*
- * The client side Javascript code.
- *
- *
- *
- *
- *
- */
 
-MMH.performSlowCrappyGyroscopeDetection();
+var MMH = (function () {
+    
+    var me = {};
+    
+    // 
+    // Public methods
+    // 
+
+    me.init = function (playerSocket) {
+        socket = playerSocket;
+
+        // listen to the admin messages
+        socket.on('admin', function(data){
+            if (data.control == "changeSettings") { // TODO rename to changeSendFrequency
+                SEND_FREQUENCY = data.data.freq;
+            }
+        });
+    }
+
+    me.setPlayerLocation = function (location) {
+        playerLocation = location;
+    };
+
+    me.getPlayerLocation = function () {
+        return playerLocation;
+    };
+
+
+    //
+    // Private stuff
+    //
+    var playerLocation = "right"; // default players to RHS but player can change
+    var socket = null;
+    var SEND_FREQUENCY = 50; // can get throttled from server
+    var preProcessCallbackFunction = null;
+    var postProcessor = null;
+
+    function sendAnswerToServer(data){
+        socket.emit("answer",data);
+    }
+    
+    return me;
+}());
 
 // 
 // Socket messages received by each client
@@ -29,20 +63,19 @@ socket.on('changeGame', function (game) {
 
 // Change the game on request of the controller and initialize the screens and data
 function changeGame(gameName) {
-    if (typeof stopClient == "function") { stopClient(); }
 
-    $("#main").load("/games/"+gameName+"/client.html", function () {
+    if (typeof stopClient === "function") { stopClient(); }
+
+    $("#main").load("/games/" + gameName + "/client.html", function () {
         initClient();
     });
 }
 
-
 // Admin message from controller
 function changeSettings(data) {
-    if (typeof updateGameSettings == "function") { updateGameSettings(data); }
+    
+    if (typeof updateGameSettings === "function") { updateGameSettings(data); }
 }
-
-
 
 function setPlayerLocation(input){
 

@@ -62,6 +62,7 @@ var PongPlayfield = (function (playfieldSocket) {
     // Publics
     //  
     me.newUser = function (data) {
+        console.log('new user  ' + data);
         //not used
     }
     me.woosOut = function (data) {

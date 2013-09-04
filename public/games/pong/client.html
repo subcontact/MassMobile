@@ -118,24 +118,29 @@
   <div class="logo"><img src="/images/MYOB_200.png" width="201" alt="" /></div>-->
 </div>
 
-<div class="up_half hidden" onclick="clickedUp();"><div class="big_word up"></div><div class="leftText">L<br />E<br />F<br />T</div>
+<div class="up_half hidden" ><div class="big_word up"></div><div class="leftText">L<br />E<br />F<br />T</div>
 <div class="rightText">R<br />I<br />G<br />H<br />T</div></div>
 
-<div class="down_half hidden" onclick="clickedDown();"><div class="big_word down"></div></div>
+<div class="down_half hidden"><div class="big_word down"></div></div>
 
 
 <script>
 	var side;
 	var lastTilt, nextTilt;
 
-	// bind mouse down for iphone (or other swipey devices)
-	if (iDevice) {
-		$(".up_half").removeAttr('onclick');
-		$(".down_half").removeAttr('onclick');
+	if (Modernizr.touch) {
 
-		$(".up_half").bind('touchstart', clickedUp);
-		$(".down_half").bind('touchstart', clickedDown);
-	}
+		//$(".up_half").hammer.on('tap', clickedUp);
+		//$(".down_half").hammer.on('tap', clickedDown);
+
+		$(".up_half").on('touchstart', clickedUp);
+		$(".down_half").on('touchstart', clickedDown);
+
+	} else {
+
+		$(".up_half").on('click', clickedUp);
+		$(".down_half").on('click', clickedDown);
+	} 
 
 	function selectSide(side) {
 		setSideColors(side);
@@ -163,7 +168,7 @@
 	}
 
 	function stopClient() {
-		MMH.stopListeningForMovements();
+		//MMH.stopListeningForMovements();
 	}
 
 	// The mmh detectors convert all detected values to +90 to -90. We want

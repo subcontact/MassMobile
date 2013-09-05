@@ -44,11 +44,11 @@
 	}
 
 	.right_answer {
-		background-color: limegreen;
+		background-color: #40D670;
 	}
 
 	.wrong_answer { 
-		background-color: crimson;
+		background-color: #9C1945;
 	}
 </style>
 
@@ -60,7 +60,7 @@
 		<input type=button value="C" onclick=vote("C") class="quizbutton rounded-corners" /> <br/>
 		<input type=button value="D" onclick=vote("D") class="quizbutton rounded-corners" /> <br/>
 	</div>
-	<div id="message" class="right_or_wrong hideme"></div>
+	<div id="message" class="right_or_wrong hideme rounded-corners"></div>
 	<div class="padding">&nbsp;</div>
 </div>
 
@@ -111,8 +111,8 @@
     }
 
     var answers = {A:0, B:1, C:2, D:3};
-    var winners = ["Gold", "Legend", "You aced it!", "YES", "Straight to the top", "Champion", "E for Effort!"];
-    var loosers = ["Whoops", "Looser", "Oh Dear :-(", "Yeah... nah.", "#fail", "Major miss dude", "Pfft. Noob."];
+    var winners = ["Gold", "Legend", "YES", "You got it", "Nick work"];
+    var loosers = ["Whoops", "Looser", "Yeah... nah.", "#fail", "Pfft. No"];
 
     function randomMessage (messages) {
     	return messages[Math.floor(Math.random() * messages.length)];

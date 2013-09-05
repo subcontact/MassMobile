@@ -1,0 +1,221 @@
+<style>
+	#main, .auditorium { background: #35393a url(/images/grid-bg.gif) top left repeat;}
+	.up_half { 
+		height: 50%;
+		width: 100%;
+		overflow: hidden;
+		margin: 0px;	
+		padding: 0px;
+	}
+	.down_half {
+		height: 50%;
+		width: 100%;
+	}
+	/*.left_side_up {
+		background-color: FireBrick;
+	}
+	.left_side_down {
+		background-color: IndianRed;
+	}
+	.right_side_up {
+		background-color: ForestGreen;
+	}
+	.right_side_down {
+		background-color: lightSeaGreen;
+	}*/
+
+	.big_word {
+		color: midnightblue;
+		position: relative;
+		
+		top: 10%;
+		left: 10%;
+		width: 80%;
+		height: 80%;
+		font-size: 30pt;
+		opacity: 0.4;
+		text-align: center;
+		vertical-align: middle;
+	}
+	.up{
+		background:#ef4e2f url(/images/arrow-up.png) center center no-repeat;
+	}
+	.down{
+		background:#ef4e2f url(/images/arrow-down.png) center center no-repeat;
+	}
+   
+	.up.rhs {
+		background:#9c6ba0 url(/images/arrow-up.png) center center no-repeat;
+	}
+	.down.rhs {
+		background:#9c6ba0 url(/images/arrow-down.png) center center no-repeat;
+	}
+	.pressed {
+	/*	border-style: inset;
+		border-radius: 1px;
+		border-color: black;*/
+		opacity: 1;
+	}
+	.hidden { display: none;}
+	.auditorium h2{
+		font-size:25px;
+		padding:0 25px;
+	}
+	.auditorium {
+		position: absolute;
+		top: 0; left: 0;
+		width: 100%; height: 100%;
+		/*background-color: midnightblue;*/
+		font-size: 25px;
+		font-weight: 200;
+		text-align: center;
+		vertical-align: text-bottom;
+	}
+	.aud_left {
+		width: 35%;
+		float: left;
+		margin-left: 10%;
+		opacity:0.6;
+		background-color: #ef4e2f;
+	}
+	.aud_right {
+		width: 35%;
+		float: right;
+		margin-right: 10%;
+		opacity:0.6;
+		background-color: #9c6ba0;
+	}
+	.aud_right:hover, .aud_left:hover  {
+		opacity:1;
+	}
+	p.aud_right, p.aud_left {
+		padding: 50px 0;
+	}
+	.logo {
+		display:block;
+		position:absolute;
+		bottom:-19px;
+		margin:0 0 20px;
+		width:100%;		
+		}
+	.leftText, .rightText {display:none;
+	position:absolute;
+	left:0;
+	top:20%;
+	color:#fff;
+	opacity:0.4;
+	font-size:45px;	
+	font-family:Arial, Helvetica, sans-serif;
+	}
+</style>
+
+<div class="auditorium tron_white">
+	<!--<h2>What side of the room you sitting on?</h2>-->
+    <h2>What  side of the room are you on?</h2>
+	<p class="aud_left" onclick="selectSide('left');">Left</p>
+	<p class="aud_right" onclick="selectSide('right');">Right</p>
+  <div class="logo"><img src="/images/MYOB_200.png" width="201" alt="" /></div>
+</div>
+
+<div class="up_half hidden" onclick="clickedUp();"><div class="big_word up"></div><div class="leftText">L<br />E<br />F<br />T</div>
+<div class="rightText">R<br />I<br />G<br />H<br />T</div></div>
+
+<div class="down_half hidden" onclick="clickedDown();"><div class="big_word down"></div></div>
+
+
+<script>
+	var side;
+	var lastTilt, nextTilt;
+
+	// bind mouse down for iphone (or other swipey devices)
+	if (iDevice) {
+		$(".up_half").removeAttr('onclick');
+		$(".down_half").removeAttr('onclick');
+
+		$(".up_half").bind('touchstart', clickedUp);
+		$(".down_half").bind('touchstart', clickedDown);
+	}
+
+	function selectSide(side) {
+		setSideColors(side);
+	    MMH.listenForMovements(pongValuesProcessor, postProcessor, false);		
+	    $(".auditorium").addClass("hidden");
+	    $(".up_half").removeClass("hidden");
+	    $(".down_half").removeClass("hidden");
+			$(".leftText").show();
+			$(".rightText").hide();
+			if (side == "right") {
+				$(".big_word").addClass("rhs");
+				$(".leftText").hide();
+				$(".rightText").show();
+				
+			} else {}
+	    // note: we don't get mmh to send for us, that we do in post()
+	}
+
+	// Note: these two methods added just for win phone 7.
+	function clickedUp() 	{ MMH.storeOrientation(0,-1);}
+	function clickedDown() 	{ MMH.storeOrientation(0,+1);}
+
+	function initClient() {
+	    MMH.init(socket);
+	}
+
+	function stopClient() {
+		MMH.stopListeningForMovements();
+	}
+
+	// The mmh detectors convert all detected values to +90 to -90. We want
+	// that from +1 to -1 for pong becuase its only an up for down.
+	// We also want to flip/reverse the results so that when the front of the handset
+	// tilts up (i.e., forward tilt) the up button is pressed. 
+	// In addition, we want the pivot point to be higher up (back tilt) so its more
+	// comfortable in a seated position.
+	function pongValuesProcessor(accel, source) {
+
+       //for the accelerometer we are adding a 45 degree tolerance to movements
+       	if (source == "accel") {
+		    accel.tiltFB = (accel.tiltFB >= 45)? -1 : 1;
+       	} else if (source =="mouse") {
+            accel.tiltFB = (accel.tiltFB >= 0)? 1 : -1;
+   		}
+		// else the acceleration came from a button click and its already fine
+
+        nextTilt = accel.tiltFB;
+
+        // changing the buttons when/if the values change
+		if (nextTilt != lastTilt) {
+			// if there is a new value
+			if (nextTilt > 0)  { 
+				$(".up_half .big_word").removeClass("pressed")
+				$(".down_half .big_word").addClass("pressed")
+			} else {
+				$(".down_half .big_word").removeClass("pressed")
+				$(".up_half .big_word").addClass("pressed")
+			}
+		}
+
+		return accel;
+	}
+
+	function postProcessor() {
+		if (nextTilt != lastTilt) {
+			lastTilt = nextTilt;
+
+			// send to the server only if change
+			MMH.sendOrientationToServer();
+		}
+	}
+
+	function setSideColors(side) {
+		MMH.setPlayerLocation(side);
+
+		if (side == "left") {
+			$(".up_half").addClass("left_side_up");
+			$(".down_half").addClass("left_side_down");
+		} else {
+			$(".up_half").addClass("right_side_up");
+			$(".down_half").addClass("right_side_down");
+		}
+	}
+</script>

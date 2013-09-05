@@ -262,3 +262,21 @@ body {
     margin:0 0 20px;
     width:100%;
 }
+
+    .animation-container{
+        padding: 140px 0px 40px 0px;
+        overflow: hidden;   
+    }
+
+
+    #object{
+        display: block; 
+        height: 250px;
+        width: 250px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 100px;
+        background: url('images/ross-v2.png') no-repeat center;
+        background-size: contain;
+
+    }

@@ -653,7 +653,9 @@ g;for(g in c){var e=g+(c[g]?"("+c[g]+")":"");!a(e)&&a(b.prefixSelector(e))&&b.se
       //    alert(JSON.stringify(data));
       //      alert(JSON.stringify(data.message.clientSlide));
             //showSlide(data);
-            Reveal.next();
+            console.log(data.message);
+//            Reveal.next();
+            Reveal.slide(data.message);
         }
     }
 

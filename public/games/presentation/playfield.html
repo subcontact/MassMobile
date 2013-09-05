@@ -76,7 +76,7 @@
         element should be rotated by 90 degrees clockwise.
         
     -->
-    <div id="its" class="step" data-x="850" data-y="3000" data-rotate="90" data-scale="5">
+    <div id="3" class="step" data-x="850" data-y="3000" data-rotate="90" data-scale="5">
         <p>It's a
             <strong>presentation tool</strong>
             <br/>inspired by the idea behind <a href="http://prezi.com">prezi.com</a> 
@@ -84,7 +84,7 @@
             <strong>power of CSS3 transforms and transitions</strong>in modern browsers.</p>
     </div>
 
-    <div id="big" class="step" data-x="3500" data-y="2100" data-rotate="180" data-scale="6">
+    <div id="4" class="step" data-x="3500" data-y="2100" data-rotate="180" data-scale="6">
         <p>visualize your <b>big</b> 
             <span class="thoughts">thoughts</span>
         </p>
@@ -244,8 +244,11 @@ $(document).ready(function() {
             return;
         }
         console.log('event fired');
-        //var currentSlide = $(e.target).attr('id');
-        PresentationPlayField.changingToSlide();//data);
+        console.log(e);
+        console.log(e.target);
+        var currentSlide = $(e.target).attr('id');
+        console.log(currentSlide);
+        PresentationPlayField.changingToSlide(currentSlide);//data);
         
     });
 });

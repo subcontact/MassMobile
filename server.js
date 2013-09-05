@@ -31,6 +31,8 @@ process.on('uncaughtException', function (err) {
     console.log('uncaught error' + err);
 });
 
+app.use(express.compress());
+
 // serve up static content images, css etc...
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public/images'));

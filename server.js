@@ -42,6 +42,7 @@ if (!useLongPolling) {
     //long polling
     io.set('log level', 2); // turn logging down
     io.configure(function () {
+        io.set('heartbeat timeout', 60);
         io.set("transports", ["xhr-polling"]);
         io.set("polling duration", 10);
     });

@@ -429,8 +429,22 @@ J[M]=b,J[z]=J[W]=J[P]=J[K]=J[U]=J[V]=J[G]=J[H]=y;var L={"boolean":b,"function":y
 		MMH.stopListeningForMovements();
 	}
 	var slideMove = null;
+
+	var crazy = true;
+
+	function notCrazy() {
+
+		crazy = false;
+	}
     function updateGameSettings(data) {
         if (data.game != undefined && data.game == "presso") {
+
+        	if (crazy) {
+
+        		setTimeout(notCrazy, 800);
+        		Reveal.slide(0);
+        		return;
+        	}
 
       //    alert(JSON.stringify(data));
       //      alert(JSON.stringify(data.message.clientSlide));
@@ -441,14 +455,14 @@ J[M]=b,J[z]=J[W]=J[P]=J[K]=J[U]=J[V]=J[G]=J[H]=y;var L={"boolean":b,"function":y
 
             if (!slideMove) {
 
-            	slideMove = _.debounce(function() { 
+            	slideMove = _.throttle(function() { 
 
             	console.log('fire!'); 
             	var result =5;
             	result = Reveal.slide(data.message) ;
             	console.log(Reveal);
             	console.log('executed ' + result);
-            },1000, true);
+            },1000);
             }
 //            Reveal.next();
             //slideMove();

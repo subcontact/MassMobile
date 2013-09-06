@@ -26,6 +26,14 @@ io.enable('browser client minification'); // send minified client
 io.enable('browser client etag'); // apply etag caching logic based on version number
 io.enable('browser client gzip'); // gzip the file
 
+var useLongPolling = true;
+
+if (useLongPolling) {
+ io.configure(function () {
+        io.set("transports", ["xhr-polling"]);
+        io.set("polling duration", 10);
+    });
+}
 
 process.on('uncaughtException', function (err) {
     console.log('uncaught error' + err);

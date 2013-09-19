@@ -1,6 +1,9 @@
 <style>
+/*
 	body {background-color:#fff !important;
 	background-position:right 10px !important;}
+*/
+
 	.answer {
 		font-size: 30pt;
 		text-align: right;
@@ -54,8 +57,9 @@
 	}
 
 </style>
+    <link href="bootstrap.min.css" rel="stylesheet" media="screen">
 <div class="q">
-	<div style="margin-bottom: 1%;border-bottom: 2px solid #000"><span class=question>Question </span> <span id="q"></span></div>
+	<div ><h1><span class="question">Question </span> <span id="q"></span></h1></div>
 	<table padding="0" cellspacing="0" width="100%">
 		<tr class="answerrow">
 			<td width="900px"><span class="letter">A.</span> <span id="a1" class="option"></span> </td><td><span id="v1" class="answer hidden_answer"></span></td>
@@ -78,26 +82,81 @@
 <script>
 	var q = -1;
     var questions = [
-        {q: "What is the current total number of ideas?",
+        {q: "How many lines of code make up the Westpac iPad app?",
             c: 2,
-            a: [28,30,32,34],
+            a: ["120,043", "131,896", "123,319", "134,022"],
         	i: ""},
-        {q: "Who is the highest contributer?",
-            c: 0,
-            a: ["Nitika", "Maninder", "Tom", "Divinia"],
+        {q: "MAD are a talented bunch. We currently have:",
+            c: 2,
+            a: ["Retired Bollywood dancer","DJ" , "Folk singer", "Break dancer"],
         	i: ""},
-        {q: "How many have they contributed?",
-            c: 1,
-            a: ["4", "8", "10", "11"],
-        	i: ""},
-        {q: "Who suggested the most popular idea?",
+        {q: "How many staff in the MAD team primarily use Android phones?",
             c: 3,
-            a: ["Maninder", "Tom", "Nitika", "Divinia"],
+            a: ["5", "15", "11", "7"],
         	i: ""},
-        {q: "How many votes did the most popular idea receive?",
+        {q: " The MAD teams favourite food is?",
+            c: 1,
+            a: ["Bacon", "Chocolate", "Cake", "Ice Cream"],
+        	i: ""},
+        {q: "How many people work in the MAD team?",
+            c: 1,
+            a: ["21", "34", "42", "49"],
+        	i: ""},
+        {q: "How many people in the MAD team have appeared in a Bollywood movie?",
+            c: 0,
+            a: ["0", "1", "2", "3"],
+        	i: ""},
+        {q: "How many pebble watches are in the MAD team?",
             c: 2,
-            a: ["9", "10", "11", "15"],
-        	i: ""}
+            a: ["0", "1", "2", "3"],
+        	i: ""},
+        {q: "If Sharknado was filmed in Australia, which MAD team member would the MAD team nominate to save the day?",
+            c: 1,
+            a: ["Lewis", "Sambit", "Sumit", "John Cuiuli"],
+        	i: ""},
+        {q: "How many Games have the MAD Developers coded?",
+            c: 3,
+            a: ["8", "3", "12", "5"],
+        	i: ""},
+        {q: " How many MAD Team members have run a marathon?",
+            c: 2,
+            a: ["0", "1", "2", "3"],
+        	i: ""},
+
+
+
+        {q: "Who is the longest serving team member for Digital Mobile?",
+            c: 0,
+            a: ["Jeremy", "Travis", "Louise", "Jay"],
+        	i: ""},
+        {q: "Who in Digital Mobile is referred to as T-Rex?",
+            c: 1,
+            a: ["Martin", "Tharani", "Linette", "Martin"],
+        	i: ""},
+        {q: "What's the average time Digital Mobile finish work on a Friday?",
+            c: 3,
+            a: ["Straight after lunch", "Friday is a work day!?", "4pm", "We never stop working!"],
+        	i: ""},
+        {q: "If you were to find a lost glass of water, iPhone or iPad mini on Lvl 8 who would it belong too?",
+            c: 2,
+            a: ["Bhawna", "Sara", "Travis", "Jay"],
+        	i: ""},
+        {q: "How many active customers do we have?",
+            c: 2,
+            a: ["1.7 Million", "1.9 Million", "2 Million", "2.1 Million"],
+        	i: ""},
+        {q: "How many people from Digital Mobile work on mobile in OTP?",
+            c: 3,
+            a: ["5", "3", "4", "2"],
+        	i: ""},
+        {q: "How many nationalities does Digital Mobile have?",
+            c: 0,
+            a: ["11", "14", "6", "10"],
+        	i: ""},
+        {q: "Who is the best dressed team member for Digital Mobile?",
+            c: 0,
+            a: ["Ben", "Travis", "Linette", "Hayden"],
+        	i: ""},
     ];
 
 

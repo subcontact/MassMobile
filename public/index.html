@@ -2,6 +2,9 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /> -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />    
     <title>Mass Mobile</title>
     <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -28,13 +31,19 @@
             <div id="circular3d_8G" class="circular3dG">
             </div>
         </div>
+
+        <div id="preload">
+   <img src="images/fun.jpeg" width="1" height="1" alt="Image 02" />
+    </div>
+
         <script src="/socket.io/socket.io.js"></script>
         <script src="jquery-2.0.3.min.js"></script>
         <script src="mmh.js"></script>
         <script src="client.js"></script>
         <script>
         // In 3 seconds, show the current game
-        setTimeout(getGame, 2000);
+        hideAddressbar('#main');
+        setTimeout(getGame, 300);
         </script>
 </body>
 

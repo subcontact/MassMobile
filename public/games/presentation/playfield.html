@@ -1,5 +1,116 @@
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
 <link href="/games/presentation/playfield/css/impress-demo.css" rel="stylesheet" />
+<style>
+
+.mad .step-title .step { opacity: 0.1; }
+
+.mad .step-title .active { opacity: 1; }
+
+@-webkit-keyframes rotate-h1 {
+        0%   { -webkit-transform: perspective(1000px) rotateY(-10deg); }
+        100% { -webkit-transform: perspective(1000px) rotateY(10deg); }
+}
+@-moz-keyframes rotate-h1 {
+        0%   { transform: perspective(1000px) rotateY(-10deg); }
+        100% { transform: perspective(1000px) rotateY(10deg); }
+}
+@keyframes rotate-h1 {
+        0%   { transform: perspective(1000px) rotateY(-10deg); }
+        100% { transform: perspective(1000px) rotateY(10deg); }
+}
+
+.mad h1 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 6em;
+    line-height: 1;
+
+    -webkit-transform-style: preserve-3d;
+    -webkit-animation: rotate-h1 2s infinite alternate ease-in-out;
+    -webkit-transform: perspective(1000px) rotateY(0deg);
+    -webkit-transition: all 2s ease-in-out;
+    -moz-transform-style: preserve-3d;
+    -moz-animation: rotate-h1 2s infinite alternate ease-in-out;
+    -moz-transform: perspective(1000px) rotateY(0deg);
+    -moz-transition: all 2s ease-in-out;
+    transform-style: preserve-3d;
+    animation: rotate-h1 2s infinite alternate ease-in-out;
+    transform: perspective(1000px) rotateY(0deg);
+    transition: all 2s ease-in-out;
+}
+
+.mad h1 .short {
+    -webkit-text-transform: lowercase;
+    -moz-text-transform: lowercase;
+    text-transform: lowercase;
+    display: inline-block;
+    font-weight: normal;
+    font-size: 0.27em;
+
+    -webkit-transform: translateZ(-50px);
+    -moz-transform: translateZ(-50px);
+    transform: translateZ(-50px);
+}
+
+.mad h1 .d3 {
+    display: inline-block;
+    -webkit-transform: translateZ(20px);
+    -moz-transform: translateZ(20px);
+    transform: translateZ(20px);
+}
+
+.mad h1 .transforms {
+    display: inline-block;
+    font-weight: normal;
+    font-size: 0.6em;
+    -webkit-transform: translateY(-0.6em) translateZ(50px);
+    -moz-transform: translateY(-0.6em) translateZ(50px);
+    transform: translateY(-0.6em) translateZ(50px);
+}
+
+.mad .author {
+    display: block;
+    width: 400px;
+    margin: -70px auto 0;
+    text-align: center;
+    font-weight: normal;
+    line-height: 1.5;
+    opacity: 0;
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    transition: opacity 1s;
+}
+
+.mad .active .author {
+    opacity: 1;
+}
+
+.list p {
+  width: 500px;
+  margin: 10px;
+  text-align:left
+}
+
+.mad-slide {
+    display: block;
+
+    width: 900px;
+    height: 700px;
+    padding: 40px 60px;
+
+
+    color: rgb(102, 102, 102);
+    text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: -1px;
+}
+
+
+</style>
+
 
 <div id="impress">
 
@@ -20,10 +131,21 @@
         It will not be rotated or scaled.
         
     -->
+    <section>
+        <div id="0" data-name="0" class="mad step mad-slide" data-x="-1000" data-y="-1500">
+            <h1>
+                <span class="css">MAD
+                    <span class="d3">Ideas board</span>
+                </span>
+                <span class="transforms">Brownbag</span>
+            </h1>
+        </div>
+    </section>
+<!--
     <div id="bored" class="step slide" data-x="-1000" data-y="-1500">
         <q>Aren't you just <b>bored</b> with all those slides-based presentations?</q>
     </div>
-
+-->
     <!--
         
         The `id` attribute of the step element is used to identify it in the URL, but it's optional.
@@ -39,16 +161,28 @@
         Using classic `id`-based links like `#step-2` makes these links usable also in fallback mode.
         
     -->
-    <div class="step slide" data-x="0" data-y="-1500">
-        <q>Don't you think that presentations given
-            <strong>in modern browsers</strong>shouldn't
-            <strong>copy the limits</strong>of 'classic' slide decks?</q>
+    <div id="1" data-name="1" class="step" data-x="6200" data-y="4300" data-z="-100" data-rotate-x="-40" data-rotate-y="50" data-scale="7">
+        <p><span class="have">First</span> <span class="you">...</span> <span class="noticed">an</span> <b>Award</b></p>
     </div>
 
-    <div class="step slide" data-x="1000" data-y="-1500">
-        <q>Would you like to
-            <strong>impress your audience</strong>with
-            <strong>stunning visualization</strong>of your talk?</q>
+    <div id="2" data-name="2" class="step big" data-x="-1500" data-y="-3000" data-scale="2">
+        <h2><sup>*</sup>Ideas to date<sup>*</sup></h2>
+                <p>
+                   <b>First a Quiz!</b>
+                </p>
+    </div>
+
+    <div id="3" data-name="3" class="step list slide" data-x="1000" data-y="-1500">
+
+        <h1>some of the ideas</h1>
+
+        <p>Credit Card Capture by Camera</p>
+        <p>Google Glass, Pebble, Samsung Watch</p>
+        <p>Voice Recognition - Siri Banking</p></li>
+        <p>Banking API for third party integration</p>
+        <p>Proxmity ATM & POS Receipts</p>
+
+
     </div>
 
     <!--
@@ -61,11 +195,15 @@
         down (4 times) to make it back to it's correct size.
         
     -->
-    <div id="title" class="step" data-x="0" data-y="0" data-scale="4">
+    <div id="4" data-name="4" class="step" data-x="0" data-y="0" data-scale="3">
+    <!--
         <span class="try">then you should try</span>
         <h1>impress.js<sup>*</sup>
         </h1>
         <span class="footnote"><sup>*</sup> no rhyme intended</span>
+        -->
+        
+                <img width="960" height="720" src="images/ideas_process.png" ></img>
     </div>
 
     <!--
@@ -76,16 +214,28 @@
         element should be rotated by 90 degrees clockwise.
         
     -->
-    <div id="3" class="step" data-x="850" data-y="3000" data-rotate="90" data-scale="5">
+    <div id="5" data-name="5" class="step " data-x="850" data-y="3000" data-rotate="90" data-scale="4">
+<img width="960" height="720" src="images/criteria.png" ></img>
+<!--
+    <ol>
+        <li><span>1.</span><p>Credit Card Capture by Camera</p></li>
+        <li><span>2.</span><p>Google Glass, Pebble, Samsung Watch</p></li>
+        <li><span>3.</span><p>Voice Recognition - Siri Banking</p></li>
+        <li><span>4.</span><p>Banking API for third party integration</p></li>
+        <li><span>5.</span><p>Proxmity ATM & POS Receipts</p></li>
+    </ol>
+    -->
+    <!--
         <p>It's a
             <strong>presentation tool</strong>
             <br/>inspired by the idea behind <a href="http://prezi.com">prezi.com</a> 
             <br/>and based on the
             <strong>power of CSS3 transforms and transitions</strong>in modern browsers.</p>
+            -->
     </div>
-
-    <div id="4" class="step" data-x="3500" data-y="2100" data-rotate="180" data-scale="6">
-        <p>visualize your <b>big</b> 
+    
+    <div id="6" data-name="6" class="step big" data-x="3500" data-y="2100" data-rotate="180" data-scale="6">
+        <p>Dare to have <b>big</b> 
             <span class="thoughts">thoughts</span>
         </p>
     </div>
@@ -99,86 +249,11 @@
         positioned far away from us (by 3000px).
         
     -->
-    <div id="tiny" class="step" data-x="2825" data-y="2325" data-z="-3000" data-rotate="300" data-scale="1">
-        <p>and <b>tiny</b> ideas</p>
+    <div id="7" data-name="7" class="step tiny" data-x="2825" data-y="2325" data-z="-3000" data-rotate="300" data-scale="1">
+        <p>but <b>tiny</b> ideas make all the difference too!!</p>
     </div>
 
-    <!--
-        
-        This step here doesn't introduce anything new when it comes to data attributes, but you
-        should notice in the demo that some words of this text are being animated.
-        It's a very basic CSS transition that is applied to the elements when this step element is
-        reached.
-        
-        At the very beginning of the presentation all step elements are given the class of `future`.
-        It means that they haven't been visited yet.
-        
-        When the presentation moves to given step `future` is changed to `present` class name.
-        That's how animation on this step works - text moves when the step has `present` class.
-        
-        Finally when the step is left the `present` class is removed from the element and `past`
-        class is added.
-        
-        So basically every step element has one of three classes: `future`, `present` and `past`.
-        Only one current step has the `present` class.
-        
-    -->
-    <div id="ing" class="step" data-x="3500" data-y="-850" data-rotate="270" data-scale="6">
-        <p>by <b class="positioning">positioning</b>, <b class="rotating">rotating</b> and <b class="scaling">scaling</b> them on an infinite canvas</p>
-    </div>
-
-    <div id="imagination" class="step" data-x="6700" data-y="-300" data-scale="6">
-        <p>the only <b>limit</b> is your <b class="imagination">imagination</b>
-        </p>
-    </div>
-
-    <div id="source" class="step" data-x="6300" data-y="2000" data-rotate="20" data-scale="4">
-        <p>want to know more?</p>
-        <q><a href="http://github.com/bartaz/impress.js">use the source</a>, Luke!</q>
-    </div>
-
-    <div id="one-more-thing" class="step" data-x="6000" data-y="4000" data-scale="2">
-        <p>one more thing...</p>
-    </div>
-
-    <!--
-        
-        And the last one shows full power and flexibility of impress.js.
-        
-        You can not only position element in 3D, but also rotate it around any axis.
-        So this one here will get rotated by -40 degrees (40 degrees anticlockwise) around X axis and
-        10 degrees (clockwise) around Y axis.
-        
-        You can of course rotate it around Z axis with `data-rotate-z` - it has exactly the same effect
-        as `data-rotate` (these two are basically aliases).
-        
-    -->
-    <div id="its-in-3d" class="step" data-x="6200" data-y="4300" data-z="-100" data-rotate-x="-40" data-rotate-y="10" data-scale="2">
-        <p>
-            <span class="have">have</span>
-            <span class="you">you</span>
-            <span class="noticed">noticed</span>
-            <span class="its">it's</span>
-            <span class="in">in</span> <b>3D<sup>*</sup></b>?</p>
-        <span class="footnote">* beat that, prezi ;)</span>
-    </div>
-
-    <!--
-        
-        So to make a summary of all the possible attributes used to position presentation steps, we have:
-        
-        * `data-x`, `data-y`, `data-z` - they define the position of **the center** of step element on
-            the canvas in pixels; their default value is 0;
-        * `data-rotate-x`, `data-rotate-y`, 'data-rotate-z`, `data-rotate` - they define the rotation of
-            the element around given axis in degrees; their default value is 0; `data-rotate` and `data-rotate-z`
-            are exactly the same;
-        * `data-scale` - defines the scale of step element; default value is 1
-        
-        These values are used by impress.js in CSS transformation functions, so for more information consult
-        CSS transfrom docs: https://developer.mozilla.org/en/CSS/transform
-        
-    -->
-    <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+    <div id="8" data-name="0" class="step" data-x="3000" data-y="1500" data-scale="10">
     </div>
 
 </div>
@@ -207,6 +282,7 @@
     Just sayin' ;)
     
 -->
+<!--
 <div class="hint">
     <p>Use a spacebar or arrow keys to navigate</p>
 </div>
@@ -215,7 +291,7 @@ if ("ontouchstart" in document.documentElement) {
     document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
 }
 </script>
-
+-->
 <!--
     
     Last, but not least.
@@ -238,15 +314,16 @@ var api = impress();
 api.init();
 var first = true;
 $(document).ready(function() {
-    $(document).on('impress:stepleave', function(e) {
-        if (first) {
-            first = false;
-            return;
-        }
-        console.log('event fired');
-        console.log(e);
-        console.log(e.target);
-        var currentSlide = $(e.target).attr('id');
+    $(document).on('impress:stepenter', function(e) {
+                console.log('event fired');
+        //if (first) {
+        //    first = false;
+        //    return;
+       // }
+
+        //console.log(e);
+        //console.log(e.target);
+        var currentSlide = $(e.target).data('name');
         console.log(currentSlide);
         PresentationPlayField.changingToSlide(currentSlide);//data);
         

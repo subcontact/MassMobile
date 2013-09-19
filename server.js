@@ -21,12 +21,32 @@ var controller  = require('./lib/controller.js');
 // The currently connected user list
 var playerList = {};
 
+/*
 io.set('log level', 2); // turn logging down
 io.enable('browser client minification'); // send minified client
 io.enable('browser client etag'); // apply etag caching logic based on version number
 io.enable('browser client gzip'); // gzip the file
+*/
+var useLongPolling = true;
 
+if (!useLongPolling) {
+    //sockets
+    io.set('log level', 2); // turn logging down
+    io.enable('browser client minification'); // send minified client
+    io.enable('browser client etag'); // apply etag caching logic based on version number
+    io.enable('browser client gzip'); // gzip the file
+    io.set('transports', [ // enable all transports (optional if you want flashsocket)
+        'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling' ]);
 
+} else {
+    //long polling
+    io.set('log level', 2); // turn logging down
+    io.configure(function () {
+        io.set('heartbeat timeout', 60);
+        io.set("transports", ["xhr-polling"]);
+        io.set("polling duration", 10);
+    });
+}
 process.on('uncaughtException', function (err) {
     console.log('uncaught error' + err);
 });

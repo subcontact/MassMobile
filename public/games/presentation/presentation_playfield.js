@@ -31,6 +31,7 @@ var PresentationPlayField = (function (playfieldSocket) {
        var data = {};
         data.game="presso";
         data.message = slide;
+        console.log('setToPlayers start');
        playfieldSocket.emit("sendToPlayers",data);
     }
 

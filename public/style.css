@@ -280,3 +280,5 @@ body {
         background-size: contain;
 
     }
+
+    div#preload { display: none; }

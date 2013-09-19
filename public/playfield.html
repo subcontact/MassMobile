@@ -2,10 +2,16 @@
 <html>
     <head>
         <title>Playfield</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />    
+
         <script src="/socket.io/socket.io.js"></script>
         <script src="/lib/intro_playfield.js"></script>
         <script src="/lib/fairy_playfield.js"></script>
         <script src="/lib/loadtest_playfield.js"></script>
+        <!--
+        -->
         <link rel="stylesheet" href="style.css" type="text/css" />
         <link rel="stylesheet" href="animations.css">
         <script type="text/javascript"  src="jquery-2.0.3.min.js"> </script>
@@ -58,11 +64,12 @@
         </div>
 
         <div id="intro" style="display: none">
+            <img style="float:left;margin: 5% 1% 1% 1%"src="images/mad_logo(text)_small.png"></img>
             <div class="tron_black">Welcome</div>
             <div class="small_tron_black">Waiting for the show to start...</div>
 
-            <div class="bootcamp_title" style="font-size: 30pt;margin: 3%">http://tinyurl.com/mad5000</div>
-            <img style="float:right;margin: 8%" src="images/qrcode.png"></img>
+            <div class="bootcamp_title" style="font-size: 30pt;margin: 1%">http://tinyurl.com/mad1000</div>
+            <img style="float:right;margin: 0% 8% 8% 8%" src="images/qrcode_azure.png"></img>
             <!-- <div class="bootcamp_title" style="font-size: 30pt;margin: 3%">http://pure-atoll-1658.herokuapp.com/</div> -->
             <div class="animation-container">
                 <div id="object" class="animate floating"></div>
@@ -88,6 +95,10 @@
                 <div id="chartCPU" style="width:1000px;height:300px;"></div>
             </div>
         </div>
+        <div id="preload">
+   <img src="images/criteria.png" width="1" height="1" alt="Image 01" />
+   <img src="images/ideas_process.png" width="1" height="1" alt="Image 02" />
+    </div>
         <script>
             var currentGame = null;
             var socket = io.connect("/playfield");

@@ -21,12 +21,13 @@ var controller  = require('./lib/controller.js');
 // The currently connected user list
 var playerList = {};
 
-/*
+
 io.set('log level', 2); // turn logging down
 io.enable('browser client minification'); // send minified client
 io.enable('browser client etag'); // apply etag caching logic based on version number
 io.enable('browser client gzip'); // gzip the file
-*/
+
+/*
 var useLongPolling = true;
 
 if (!useLongPolling) {
@@ -47,6 +48,7 @@ if (!useLongPolling) {
         io.set("polling duration", 10);
     });
 }
+*/
 process.on('uncaughtException', function (err) {
     console.log('uncaught error' + err);
 });
